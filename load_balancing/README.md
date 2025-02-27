@@ -25,7 +25,7 @@ python3 run.py -f my_video.mp4
 
 ## How Does This Work?
 
-Same as before, to enable the apps to run in parallel, we are simply setting the `group_id` argument for AsyncAccl to the index of the MXA M.2 module we want to use.
+Same as other examples, to enable the apps to run in parallel, we are simply setting the `group_id` argument for [AsyncAccl](https://developer.memryx.com/api/accelerator/python.html) to the index of the MXA M.2 module we want to use.
 
 Now in the main image capture thread, we are pushing round-robin to 4 different object input queues in order.
 
