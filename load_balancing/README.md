@@ -1,6 +1,6 @@
-# One Application using Different DFPs on Separate M.2s
+# Same DFP Across 4 MXAs
 
-Here's an example of running MiDAS Depth + Cartoonizer on separate M.2s, but within a single application that uses multiple AsyncAccl objects.
+This example runs the input camera stream or input video file robin-robin across **all 4** connected M.2 modules.
 
 
 ## Requirements
@@ -10,19 +10,23 @@ Make sure you've activated your memryx python venv and have installed the `openc
 
 ## Run
 
+Camera example (cam ID 0):
+
 ```python
-python3 run.py -d 0 -c 2
+python3 run.py -id 0
 ```
 
-This will use MXA 0 for Depth and MXA 1 for Cartoonizer. Edit run.py if you want to try different M.2s in your system.
+Video file example:
 
-The `-d` argument is the camera index for Depth and `-c` is the camera index for Cartoonizer.
+```python
+python3 run.py -f my_video.mp4
+```
 
 
-
-## How Do They Work?
+## How Does This Work?
 
 Same as before, to enable the apps to run in parallel, we are simply setting the `group_id` argument for AsyncAccl to the index of the MXA M.2 module we want to use.
 
-In this case, we're using two AsyncAccl objects within the same Python application, instead of two completely separate applications.
+Now in the main image capture thread, we are pushing round-robin to 4 different object input queues in order.
 
+The display thread then reads from the objects, also round-robin and in order.

@@ -1,6 +1,8 @@
-# One Application using Different DFPs on Separate M.2s
+# Combined Application using Different DFPs on Separate M.2s
 
 Here's an example of running MiDAS Depth + Cartoonizer on separate M.2s, but within a single application that uses multiple AsyncAccl objects.
+
+It uses a single input camera and concats app outputs together.
 
 
 ## Requirements
@@ -11,12 +13,10 @@ Make sure you've activated your memryx python venv and have installed the `openc
 ## Run
 
 ```python
-python3 run.py -d 0 -c 2
+python3 run.py -id 0
 ```
 
 This will use MXA 0 for Depth and MXA 1 for Cartoonizer. Edit run.py if you want to try different M.2s in your system.
-
-The `-d` argument is the camera index for Depth and `-c` is the camera index for Cartoonizer.
 
 
 
@@ -26,3 +26,4 @@ Same as before, to enable the apps to run in parallel, we are simply setting the
 
 In this case, we're using two AsyncAccl objects within the same Python application, instead of two completely separate applications.
 
+We use a single camera & display thread to get around python Threading bugs with opencv imshow.
