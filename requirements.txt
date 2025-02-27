@@ -1,0 +1,1 @@
+-i https://developer.memryx.com/pip memryx opencv-python
